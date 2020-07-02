@@ -10,7 +10,7 @@ public class Demo {
   public static void main(String[] args) {
 
     FhirContext ctx = FhirContext.forR4();
-    String serverBase = "http://hapi.fhir.org/baseR4";
+    String serverBase = "https://fhir.molit.eu/fhir";
     IGenericClient client = ctx.newRestfulGenericClient(serverBase);
 
     //search for Patient
@@ -25,7 +25,10 @@ public class Demo {
 
     // create Patient
     Patient patient = new Patient();
+
     patient.addName().setFamily("WernerTest").addGiven("Patrick");
+    String s = ctx.newJsonParser().setPrettyPrint(true).encodeResourceToString(patient);
+    System.out.println(s);
 
     MethodOutcome outcome = client
         .create()
